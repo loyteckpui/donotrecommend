@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>P57lmnopqr s  .js Example</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script> -->
+<script src="p5js/p5.js"></script>
+<script src="p5js/p5.sound.js"></script>
+<script src="p5js/p5.rovercam.js"></script>			
+
+
+<!-- <audio  autoplay src="assets/audio002.mp3"></audio> -->
+
+</head>
+<body>
+
+<script>
+
+
+let myFont;
+
+let vids001;
+
+
+function preload(){
+
+   myFont = loadFont('assets/inconsolata.otf');
+
+  vid_001 = createVideo(['assets/vid_001.mp4']);
+  vid_001.elt.muted = true;
+  vid_001.size(100,100);
+  vid_001.loop();
+  vid_001.hide();
+
+
+
+  vids001 = createVideo(['assets/vid_pets_b.mp4']);
+  vids001.elt.muted = true;
+  vids001.size(100,100);
+  vids001.loop();
+  vids001.hide();
+
+  vids002 = createVideo(['assets/vid_virtue_a.mp4']);
+  vids002.elt.muted = true;
+  vids002.size(100,100);
+  vids002.loop();
+  vids002.hide();
+
+  vids003 = createVideo(['assets/vid_ge2020_a.mp4']);
+  vids003.elt.muted = true;
+  vids003.size(100,100);
+  vids003.loop();
+  vids003.hide();
+
+
+  vids004 = createVideo(['assets/vid_equal_a.mp4']);
+  vids004.elt.muted = true;
+  vids004.size(100,100);
+  vids004.loop();
+  vids004.hide();
+
+
+ 
+  vids005 = createVideo(['assets/vid_sgn_a.mp4']);
+  vids005.elt.muted = true;
+  vids005.size(100,100);
+  vids005.loop();
+  vids005.hide();
+}
+
+
+let ele, audio_playing;
+function setup(){
+   createCanvas(windowWidth-20,windowHeight-20, WEBGL);
+   background(120);
+   normalMaterial();
+   
+   textFont(myFont);
+   textSize(36);
+
+//   getAudioContext().suspend();
+   audio_playing= false;
+   ele = createAudio('assets/audio002.mp3');
+   
+}
+
+var x=20,y=0,z=1900;
+var aa=0, dx,dz;
+var step=25;
+
+
+function draw(){
+
+
+   background(204);
+   dx = sin(aa*PI/180) ;
+   dz = cos(aa*PI/180) ;
+
+   camera(x, y, z,    x+dx, 0, z-dz,   0, 1, 0);
+
+
+   push();
+   fill(120,0,0);
+   sphere(10);
+   translate( 50,0,0);
+   fill(0,120,120);
+   sphere(10);
+   pop();
+
+   push();
+	   translate(0,0,0);
+	   rotateZ(period_stepsize(20));
+	   rotateX(period_stepsize(20));
+	   rotateY(period_stepsize(20));
+	   texture(vid_001);
+	   sphere(2500);
+   pop();
+
+   //sphere 001
+   push();
+		//orbital plane
+		rotateZ(degrees_to_radians(30));    //
+		rotateX(degrees_to_radians(-45));    //
+		rotateY(period_stepsize(-10));
+		push()
+			//orbit radius
+			translate(250,0,0);
+			//planet spin
+			rotateZ(0);
+			rotateX(period_stepsize(10));
+			rotateY(0);
+			//planet
+			texture(vids001);
+			vids001.volume(0.05*(sin(period_stepsize(10)))+0.2);
+			sphere(150);
+		pop();
+	pop();
+	
+   //sphere 002
+   push();
+		//orbital plane
+		rotateZ(degrees_to_radians(-30));    //
+		rotateX(degrees_to_radians(-45));    //
+		rotateY(period_stepsize(4));
+		push()
+			//orbit radius
+			translate(-600,0,0);
+			//planet spin
+			rotateZ(0);
+			rotateX(period_stepsize(2));
+			rotateY(period_stepsize(10));
+			//planet
+			texture(vids002);
+			vids002.volume(0.15*(sin(period_stepsize(4)))+0.2);
+			sphere(200);
+		pop();
+	pop();
+
+
+   //sphere 003
+   push();
+		//orbital plane
+		rotateZ(degrees_to_radians(-60));    //
+		rotateX(degrees_to_radians(30));    //
+		rotateY(period_stepsize(9));
+		push();
+			//orbit radius
+			translate(-1100,0,0);
+			//planet spin
+			rotateZ(0);
+			rotateX(period_stepsize(6));
+			rotateY(period_stepsize(-6));
+			//planet
+			texture(vids003);
+			vids003.volume(0.5*(sin(period_stepsize(9)))+0.5);
+
+			sphere(300);
+		pop();
+	pop();
+
+   //sphere 004
+   push();
+		//orbital plane
+		rotateZ(degrees_to_radians(-15));    //
+		rotateX(degrees_to_radians(75));    //
+		rotateY(period_stepsize(23));
+		push();
+			//orbit radius
+			translate(-1500,0);
+			//planet spin
+			rotateZ(frameCount *  0.00);
+			rotateX(period_stepsize(20));
+			rotateY(period_stepsize(-20));
+			//planet
+			texture(vids004);
+			vids004.volume(0.25*(sin(period_stepsize(23)))+0.5);
+			sphere(300);
+		pop();
+	pop();
+
+
+   //sphere 005
+   push();
+		//orbital plane
+		rotateZ(degrees_to_radians(-15));    //
+		rotateX(degrees_to_radians(15));    //
+		rotateY(period_stepsize(29));
+		push();
+			//orbit radius
+			translate(-2000,0);
+			//planet spin
+			rotateZ(0);
+			rotateX(period_stepsize(29));
+			rotateY(period_stepsize(-29));
+			//planet
+			texture(vids005);
+			vids005.volume(0.25*(sin(period_stepsize(-29)))+0.25);
+			sphere(400);
+		pop();
+	pop();
+
+  textAlign(CENTER, CENTER);
+  text(getAudioContext().state, width/2, height/2);
+
+	if(audio_playing==true){
+		text("playing", width/2, height/2+20);
+	} else { 
+		text("pause", width/2, height/2+20);
+	}
+
+
+}
+
+function keyPressed() {
+
+  if (keyCode === LEFT_ARROW) {
+    aa -= 10 ;
+  } else if (keyCode === RIGHT_ARROW) {
+    aa += 10;
+  } else if (keyCode === UP_ARROW) {
+    x+=dx*step; z-=dz*step;
+  } else if (keyCode === DOWN_ARROW) {
+    x-=dx*step; z+=dz*step;
+  } 
+
+}
+
+function mousePressed() {
+    userStartAudio();
+	if(audio_playing){
+		//ele.pause();
+		vids001.elt.muted = true;
+		vids002.elt.muted = true;
+		vids003.elt.muted = true;
+		vids004.elt.muted = true;
+		vids005.elt.muted = true;
+
+		audio_playing = false
+	} else{
+		//ele.play();
+		vids001.elt.muted = false;
+		vids002.elt.muted = false;
+		vids003.elt.muted = false;
+		vids004.elt.muted = false;
+		vids005.elt.muted = false;
+
+
+		audio_playing = true;
+	}
+	
+}
+
+function period_stepsize(period_s){
+	var step_size;
+	
+	step_size = (millis()/1000)/period_s*2*PI;
+	
+	return step_size;
+}
+
+
+function degrees_to_radians(degrees){
+	return degrees/180*Math.PI
+}
+
+</script>
+
+</body>
+</html>
