@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>P57lmnopqr s  .js Example</title>
+<title>Do Not Recommend</title>
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
 
@@ -19,110 +19,134 @@
 <script>
 
 
-let myFont;
-
-let vids001;
-
+var myFont;
+var vid_001;
+var vids001, vids002, vids003, vids004, vids005;
 
 function preload(){
 
-   myFont = loadFont('assets/inconsolata.otf');
+	myFont = loadFont('assets/inconsolata.otf');
 
-  vid_001 = createVideo(['assets/vid_001.mp4']);
-  vid_001.elt.muted = true;
-  vid_001.size(100,100);
-  vid_001.loop();
-  vid_001.hide();
+	img001 = loadImage('assets/img_youtube_c.png');
+	img002 = loadImage('assets/img_dnr_a.png');
 
+	vid_001 = createVideo(['assets/vid_001.mp4']);
+	vid_001.elt.muted = true;
+	vid_001.size(100,100);
+	vid_001.loop();
+	vid_001.hide();
 
+	vids001 = createVideo(['assets/vid_pets_d.mp4']);
+	vids001.elt.muted = true;
+	vids001.size(100,100);
+	vids001.loop();
+	vids001.hide();
 
-  vids001 = createVideo(['assets/vid_pets_b.mp4']);
-  vids001.elt.muted = true;
-  vids001.size(100,100);
-  vids001.loop();
-  vids001.hide();
+	vids002 = createVideo(['assets/vid_virtue_b.mp4']);
+	vids002.elt.muted = true;
+	vids002.size(100,100);
+	vids002.loop();
+	vids002.hide();
 
-  vids002 = createVideo(['assets/vid_virtue_a.mp4']);
-  vids002.elt.muted = true;
-  vids002.size(100,100);
-  vids002.loop();
-  vids002.hide();
+	vids003 = createVideo(['assets/vid_ge2020_a.mp4']);
+	vids003.elt.muted = true;
+	vids003.size(100,100);
+	vids003.loop();
+	vids003.hide();
 
-  vids003 = createVideo(['assets/vid_ge2020_a.mp4']);
-  vids003.elt.muted = true;
-  vids003.size(100,100);
-  vids003.loop();
-  vids003.hide();
+	vids004 = createVideo(['assets/vid_equal_b.mp4']);
+	vids004.elt.muted = true;
+	vids004.size(100,100);
+	vids004.loop();
+	vids004.hide();
 
-
-  vids004 = createVideo(['assets/vid_equal_a.mp4']);
-  vids004.elt.muted = true;
-  vids004.size(100,100);
-  vids004.loop();
-  vids004.hide();
-
-
- 
-  vids005 = createVideo(['assets/vid_sgn_a.mp4']);
-  vids005.elt.muted = true;
-  vids005.size(100,100);
-  vids005.loop();
-  vids005.hide();
+	vids005 = createVideo(['assets/vid_sgn_b.mp4']);
+	vids005.elt.muted = true;
+	vids005.size(100,100);
+	vids005.loop();
+	vids005.hide();
+  
 }
 
 
-let ele, audio_playing;
+var ele, audio_playing;
 function setup(){
-   createCanvas(windowWidth-20,windowHeight-20, WEBGL);
+   createCanvas(600,800, WEBGL);
+
    background(120);
    normalMaterial();
    
    textFont(myFont);
    textSize(36);
 
-//   getAudioContext().suspend();
    audio_playing= false;
    ele = createAudio('assets/audio002.mp3');
    
 }
 
-var x=20,y=0,z=1900;
+var red_x=0,red_y=0,red_z=0;
+
+var cam_x=120,cam_y=0,cam_z=500;  
 var aa=0, dx,dz;
 var step=25;
+var boundary_sqr = sqr(1500);
+
+var donotrec_sphere_size=25;
+var dnr_boundary_sqr = sqr(donotrec_sphere_size+(step/2));
+var dnr_x=500,dnr_y=0,dnr_z=-500;
+var dnr_brightness=0.5;
+
+var content_audio=5; //set to 5
 
 
 function draw(){
 
 
-   background(204);
-   dx = sin(aa*PI/180) ;
-   dz = cos(aa*PI/180) ;
+	background(100);
+	dx = sin(aa*PI/180) ;
+	dz = cos(aa*PI/180) ;
 
-   camera(x, y, z,    x+dx, 0, z-dz,   0, 1, 0);
+    camera(cam_x, cam_y, cam_z,    cam_x+dx, 0, cam_z-dz,   0, 1, 0);
+	
+	push();
+		//	red pill
+		translate(red_x,red_y,red_z);
+		fill(120,0,0);
+		rotateZ(degrees_to_radians(22));
+		rotateX(degrees_to_radians(-22));	
+		rotateY(period_stepsize(10));
+		texture(img001);
+		sphere(30);
+	
+	pop();
+	
+	push();
+		if(content_audio>0){
+			//	blue pill
+			translate( dnr_x,dnr_y,dnr_z);
+			fill(0,255*dnr_brightness,255*dnr_brightness);
+			rotateZ(degrees_to_radians(22));
+			rotateY(period_stepsize(-10));
+			rotateX(period_stepsize(1000));
+			texture(img002);
+			sphere(donotrec_sphere_size);
+		 }
+	pop();
 
-
-   push();
-   fill(120,0,0);
-   sphere(10);
-   translate( 50,0,0);
-   fill(0,120,120);
-   sphere(10);
-   pop();
-
-   push();
+	push();
 	   translate(0,0,0);
 	   rotateZ(period_stepsize(20));
 	   rotateX(period_stepsize(20));
 	   rotateY(period_stepsize(20));
 	   texture(vid_001);
 	   sphere(2500);
-   pop();
+	pop();
 
-   //sphere 001
-   push();
+	//sphere 001
+	push();
 		//orbital plane
-		rotateZ(degrees_to_radians(30));    //
-		rotateX(degrees_to_radians(-45));    //
+		rotateZ(degrees_to_radians(45));
+		rotateX(degrees_to_radians(-45));
 		rotateY(period_stepsize(-10));
 		push()
 			//orbit radius
@@ -133,13 +157,13 @@ function draw(){
 			rotateY(0);
 			//planet
 			texture(vids001);
-			vids001.volume(0.05*(sin(period_stepsize(10)))+0.2);
+			vids001.volume(0.02*(sin(period_stepsize(10)))+0.3);
 			sphere(150);
 		pop();
 	pop();
 	
-   //sphere 002
-   push();
+	//sphere 002
+	push();
 		//orbital plane
 		rotateZ(degrees_to_radians(-30));    //
 		rotateX(degrees_to_radians(-45));    //
@@ -159,11 +183,11 @@ function draw(){
 	pop();
 
 
-   //sphere 003
-   push();
+	//sphere 003
+	push();
 		//orbital plane
-		rotateZ(degrees_to_radians(-60));    //
-		rotateX(degrees_to_radians(30));    //
+		rotateZ(degrees_to_radians(-60));
+		rotateX(degrees_to_radians(30));
 		rotateY(period_stepsize(9));
 		push();
 			//orbit radius
@@ -174,14 +198,14 @@ function draw(){
 			rotateY(period_stepsize(-6));
 			//planet
 			texture(vids003);
-			vids003.volume(0.5*(sin(period_stepsize(9)))+0.5);
+			vids003.volume(0.2*(sin(period_stepsize(9)))+0.3);
 
 			sphere(300);
 		pop();
 	pop();
 
-   //sphere 004
-   push();
+	//sphere 004
+	push();
 		//orbital plane
 		rotateZ(degrees_to_radians(-15));    //
 		rotateX(degrees_to_radians(75));    //
@@ -195,14 +219,14 @@ function draw(){
 			rotateY(period_stepsize(-20));
 			//planet
 			texture(vids004);
-			vids004.volume(0.25*(sin(period_stepsize(23)))+0.5);
+			vids004.volume(0.25*(sin(period_stepsize(23)))+0.3);
 			sphere(300);
 		pop();
 	pop();
 
 
-   //sphere 005
-   push();
+	//sphere 005
+	push();
 		//orbital plane
 		rotateZ(degrees_to_radians(-15));    //
 		rotateX(degrees_to_radians(15));    //
@@ -216,41 +240,163 @@ function draw(){
 			rotateY(period_stepsize(-29));
 			//planet
 			texture(vids005);
-			vids005.volume(0.25*(sin(period_stepsize(-29)))+0.25);
+			vids005.volume(0.25*(sin(period_stepsize(-29)))+0.3);
 			sphere(400);
 		pop();
 	pop();
 
-  textAlign(CENTER, CENTER);
-  text(getAudioContext().state, width/2, height/2);
 
-	if(audio_playing==true){
-		text("playing", width/2, height/2+20);
-	} else { 
-		text("pause", width/2, height/2+20);
+	/*
+		//Print playing status
+		textAlign(CENTER, CENTER);
+		text(getAudioContext().state, width/2, height/2);
+
+		if(audio_playing==true){
+			text("playing", width/2, height/2+20);
+		} else { 
+			text("pause", width/2, height/2+20);
+		}
+	*/
+	
+	/*
+		//print cam location and squared distance from centre.
+		text(cam_x, 0, -90);
+		text(cam_z, 0, -60);
+		text(sqr(cam_x+dx*step)+sqr(cam_z-dz*step),0,-30);
+	*/
+	
+	/*
+		//print border warning.
+		if( ((sqr(cam_x+dx*step)+sqr(cam_z-dz*step))> boundary_sqr) | ((sqr(cam_x-dx*step)+sqr(cam_z+dz*step))> boundary_sqr) ){
+			text("border", 0, -120);
+		}
+	*/
+	if( ((sqr((cam_x-dnr_x)+dx*step)+sqr((cam_z-dnr_z)-dz*step)) < dnr_boundary_sqr) | ((sqr((cam_x-dnr_x)-dx*step)+sqr((cam_z-dnr_z)+dz*step))< dnr_boundary_sqr) )
+	{
+
+		if(dnr_x>0){
+			dnr_x=-200*random(2,5);
+			dnr_z=-200*random(2,5);
+		} else{
+			dnr_x=200*random(2,3);
+			dnr_z=200*random(2,3);
+
+		}
+		
+		if(donotrec_sphere_size>2){
+			donotrec_sphere_size/=2
+		}
+		
+		if(content_audio>0){
+			content_audio -= 1;
+		}
+		
+		
+		if(ini==false){
+			if(content_audio==4){
+				vids001.elt.muted = false;
+				vids002.elt.muted = false;
+				vids003.elt.muted = false;
+				vids004.elt.muted = false;
+				vids005.elt.muted = true;
+			}
+			if(content_audio==3){
+				vids001.elt.muted = false;
+				vids002.elt.muted = false;
+				vids003.elt.muted = false;
+				vids004.elt.muted = true;
+				vids005.elt.muted = true;
+
+			}
+			if(content_audio==2){
+				vids001.elt.muted = false;
+				vids002.elt.muted = false;
+				vids003.elt.muted = true;
+				vids004.elt.muted = true;
+				vids005.elt.muted = true;
+			}
+			if(content_audio==1){
+				vids001.elt.muted = false;
+				vids002.elt.muted = true;
+				vids003.elt.muted = true;
+				vids004.elt.muted = true;
+				vids005.elt.muted = true;
+			}
+			if(content_audio==0){
+				vids001.elt.muted = true;
+				vids002.elt.muted = true;
+				vids003.elt.muted = true;
+				vids004.elt.muted = true;
+				vids005.elt.muted = true;
+			}
+		}
 	}
 
-
 }
+
+
+var audio_only_ini=true;
 
 function keyPressed() {
 
-  if (keyCode === LEFT_ARROW) {
-    aa -= 10 ;
-  } else if (keyCode === RIGHT_ARROW) {
-    aa += 10;
-  } else if (keyCode === UP_ARROW) {
-    x+=dx*step; z-=dz*step;
-  } else if (keyCode === DOWN_ARROW) {
-    x-=dx*step; z+=dz*step;
-  } 
+	if (keyCode === LEFT_ARROW) {
+		aa -= 10 ;
+	} else if (keyCode === RIGHT_ARROW) {
+		aa += 10;
+	} else if (keyCode === UP_ARROW) {
+		if( sqr(cam_x+dx*step)+sqr(cam_z-dz*step)	< boundary_sqr){
+			cam_x+=dx*step;
+			cam_z-=dz*step;
+		}
+	} else if (keyCode === DOWN_ARROW) {
+		if( sqr(cam_x-dx*step)+sqr(cam_z+dz*step)	< boundary_sqr){
+			cam_x-=dx*step;
+			cam_z+=dz*step;
+		}
+	}
+
+    //Trigger sound
+	if(ini==true && content_audio>0){
+		ele.play();
+		vids001.elt.muted = false;
+		vids002.elt.muted = false;
+		vids003.elt.muted = false;
+		vids004.elt.muted = false;
+		vids005.elt.muted = false;
+		ini=false;
+	}
+
+
+	// To facilitate restarting of story after last blue is eaten
+	if(content_audio==0){
+		if(audio_only_ini==true){
+			ele.stop();
+			ele.play();
+			audio_playing=true;
+			audio_only_ini=false;
+		}
+		
+	}
 
 }
 
+var ini=true;
+
 function mousePressed() {
+
     userStartAudio();
-	if(audio_playing){
-		//ele.pause();
+	
+	if(ini==true && content_audio>0){
+		ele.play();
+		vids001.elt.muted = false;
+		vids002.elt.muted = false;
+		vids003.elt.muted = false;
+		vids004.elt.muted = false;
+		vids005.elt.muted = false;
+		ini=false;
+	}
+	/*	if(audio_playing){
+		ele.pause();
 		vids001.elt.muted = true;
 		vids002.elt.muted = true;
 		vids003.elt.muted = true;
@@ -259,18 +405,40 @@ function mousePressed() {
 
 		audio_playing = false
 	} else{
-		//ele.play();
+		ele.play();
 		vids001.elt.muted = false;
 		vids002.elt.muted = false;
 		vids003.elt.muted = false;
 		vids004.elt.muted = false;
 		vids005.elt.muted = false;
-
-
 		audio_playing = true;
+	}
+	*/
+	
+	if(content_audio==0){
+		if(audio_only_ini==true){
+			ele.stop();
+			ele.play();
+			audio_playing=true;
+			audio_only_ini=false;
+		} else{
+			if(audio_playing==true){
+				ele.pause();
+				audio_playing=false;
+			}else{
+				ele.play();
+				audio_playing=true;
+
+			}
+
+		}
+		
 	}
 	
 }
+
+
+
 
 function period_stepsize(period_s){
 	var step_size;
@@ -283,6 +451,10 @@ function period_stepsize(period_s){
 
 function degrees_to_radians(degrees){
 	return degrees/180*Math.PI
+}
+
+function sqr(num){
+	return num*num
 }
 
 </script>
